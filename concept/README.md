@@ -24,7 +24,7 @@ The same approach works in a script, a command-line tool, or a framework-based a
 
 #### Creation and Access
 
-Creation logic describes **how to construct a value**. Access requests **the value managed by the initializer**.
+The supplied creation logic describes **how to construct a value**. Calling the initializer's access API requests **the value managed by the initializer**.
 
 A lazy initializer defers creation until the first access. For example, an integration client can be declared during assembly and constructed when a workflow first needs it.
 
@@ -34,7 +34,7 @@ Declaring the initializer does not construct the value. Creation costs and failu
 
 #### Retention
 
-Successful initialization stores the created value. Later accesses return that retained value until it is invalidated.
+After successful creation, the initializer stores the created value. Later accesses return that retained value until it is invalidated.
 
 Reuse is scoped to the initializer instance. Separate initializers retain their values independently, even when supplied with the same creation logic.
 
@@ -60,7 +60,7 @@ flowchart TD
 
 A failed creation attempt produces a mapped initialization exception preserving the original cause.
 
-Failure leaves no successfully initialized value. The initializer's contract must define whether a later access retries creation or reports the retained failure.
+A failed creation attempt leaves the initializer without a successfully initialized value. The initializer's contract must define whether a later access retries creation or reports the retained failure.
 
 Retrying creation is a separate decision from reusing a successfully created value.
 
@@ -70,7 +70,7 @@ Retrying creation is a separate decision from reusing a successfully created val
 
 An initializer supporting concurrent access coordinates creation and publication of its value.
 
-Concurrent callers should obtain the same retained result after successful initialization. The concurrency contract must also define how access interacts with failure and reset.
+Concurrent callers should obtain the same retained result after successful initialization. The initializer's concurrency contract must also define how simultaneous access interacts with failed creation attempts and reset.
 
 <br>
 
@@ -80,7 +80,7 @@ Reset invalidates the retained value. A later access can run the creation logic 
 
 Disposal releases resources held by a value. Reset and disposal have separate effects: invalidating the initializer's reference does not close a connection or revoke references already held by callers.
 
-Resource ownership determines who disposes of the old value and when doing so is appropriate.
+Ownership of the initialized resource determines who disposes of the old value and when doing so is appropriate.
 
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': {'lineColor': '#ffffff', 'edgeLabelBackground': '#000000', 'primaryTextColor': '#ffffff'}}}%%
