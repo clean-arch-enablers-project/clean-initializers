@@ -30,6 +30,8 @@ A lazy initializer defers creation until the first access. For example, an integ
 
 Declaring the initializer does not construct the value. Creation costs and failures become visible when the value is first requested.
 
+An **initialization-state query** reports whether the initializer already retains a successfully created value. Inspecting that state does not run the creation logic. This lets calling code distinguish declaring an initializer from actually initializing its value.
+
 <br>
 
 #### Retention
@@ -62,6 +64,8 @@ A failed creation attempt produces a mapped initialization exception preserving 
 
 A failed creation attempt leaves the initializer without a successfully initialized value. The initializer's contract must define whether a later access retries creation or reports the retained failure.
 
+Creation logic can be invoked again after a failed attempt or a reset. Resources acquired during an unsuccessful creation attempt remain the responsibility of that creation logic, because the initializer has no successfully retained value to release.
+
 Retrying creation is a separate decision from reusing a successfully created value.
 
 <br>
@@ -71,6 +75,8 @@ Retrying creation is a separate decision from reusing a successfully created val
 An initializer supporting concurrent access coordinates creation and publication of its value.
 
 Concurrent callers should obtain the same retained result after successful initialization. The initializer's concurrency contract must also define how simultaneous access interacts with failed creation attempts and reset.
+
+Coordinating initialization makes the retained value available consistently; it does not make the value's own operations safe for concurrent use. Consumers sharing a connection or client must still follow that resource's access rules.
 
 <br>
 
