@@ -1,3 +1,9 @@
+<p align="center">CAE Artifact</p>
+
+---
+
+<br>
+
 # Clean Initializers
 
 Lazy initialization: create a value on first access, retain it after successful creation, and reuse it on subsequent accesses.
@@ -30,3 +36,10 @@ Checked items have implementation code in this repository. Unchecked items are r
 - [ ] [Python](implementations/python/) — Placeholder; implementation not yet available.
 
 Licensed under [Apache License 2.0](LICENSE).
+
+<br>
+<br>
+
+---
+
+<p align="center">clean software, made easy.</p>

@@ -1,3 +1,9 @@
+<p align="center">CAE Java Version</p>
+
+---
+
+<br>
+
 # Clean Initializers for Java
 
 Clean Initializers provides a standalone lazy value for Java 25. Its only runtime dependency is Clean Mapped Exceptions.
@@ -36,3 +42,10 @@ Reset leaves existing references usable. The application owns disposal and coord
 From the repository root, run `mvn -f implementations/java/pom.xml clean verify` with Java 25. The build checks compiler warnings, tests, per-class coverage, and Javadoc.
 
 GitHub Actions verifies Java changes on pull requests to `main` and publishes new Java versions from `main`. See the [publishing guide](../../.github/PUBLISHING.md) for the release rules and required secrets.
+
+<br>
+<br>
+
+---
+
+<p align="center">clean software, made easy.</p>
